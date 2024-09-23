@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.flower.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="com.example.flower.entity.User">
+        <id property="id" column="id" />
+        <result property="openid" column="openid" />
+        <result property="unionid" column="unionid" />
+        <result property="nickname" column="nickname" />
+        <result property="avatarUrl" column="avatar_url" />
+        <result property="role" column="role" />
+        <result property="password" column="password" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+
+    <select id="findByOpenid" parameterType="string" resultMap="UserResultMap">
+        SELECT * FROM users WHERE openid = #{openid}
+    </select>
+
+    <select id="findById" parameterType="long" resultMap="UserResultMap">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <select id="findAllUsers" resultMap="UserResultMap">
+        SELECT * FROM users
+    </select>
+
+    <insert id="insertUser" parameterType="com.example.flower.entity.User">
+        INSERT INTO users (openid, unionid, nickname, avatar_url, role, password, create_time, update_time)
+        VALUES (#{openid}, #{unionid}, #{nickname}, #{avatarUrl}, #{role}, #{password}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateUser" parameterType="com.example.flower.entity.User">
+        UPDATE users
+        SET openid = #{openid},
+            unionid = #{unionid},
+            nickname = #{nickname},
+            avatar_url = #{avatarUrl},
+            role = #{role},
+            password = #{password},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="Long">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+</mapper>
